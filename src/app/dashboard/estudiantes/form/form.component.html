@@ -1,0 +1,142 @@
+
+    <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+        <li *ngFor="let error of errores" class="ms-4">{{ error }}</li>
+    </ul>
+
+
+    <div class="card">
+        <div class="card-header bg-white">Actualizar estudiante</div>
+        <h4 class="card-title">
+            <a [routerLink]="['/dashboard/estudiantes/page/0']" class="btn btn-light btn-sm">&laquo; regresar</a>
+        </h4>
+        
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="nombres" class="input-label">Nombres</label>
+                        <input type="text" class="form-control" name="nombres" [(ngModel)]="estudiante.nombres">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="apellidoPaterno" class="input-label">Apellido Paterno</label>
+                        <input type="text" class="form-control" name="apellidoPaterno" [(ngModel)]="estudiante.apellidoPaterno">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="apellidoMaterno" class="input-label">Apellido Materno</label>
+                        <input type="text" class="form-control" name="apellidoMaterno" [(ngModel)]="estudiante.apellidoMaterno">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="form-group col-sm-4">
+                        <label for="dni" class="input-label">dni</label>
+                        <input type="text" class="form-control" name="dni" [(ngModel)]="estudiante.dni">
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="fechaNacimiento" class="input-label">Fecha de Nacimiento</label>
+        
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <i class="far fa-calendar-alt"></i>
+                            </div>
+                            <input type="text"
+                            name="fechaNacimiento"
+                            placeholder="Elegir fecha"
+                            class="form-control"
+                            bsDatepicker
+                            [maxDate]="maxDate"
+                            [bsConfig]="bsConfig"
+                            autocomplete="off"
+                            [(ngModel)]="estudiante.fechaNacimiento" required #fechaNacimiento="ngModel">
+                        </div>
+                        <div class="text-danger" *ngIf="fechaNacimiento.invalid && (fechaNacimiento.dirty || fechaNacimiento.touched)">
+                            <div *ngIf="fechaNacimiento.errors.required">
+                                La fecha es requerida.
+                            </div>
+        
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="celular" class="input-label">Nro. Celular</label>
+                        <input type="text" class="form-control" name="celular" [(ngModel)]="estudiante.celular">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="form-group col-sm-6">
+                        <label for="correo" class="input-label">Correo</label>
+                        <input type="text" class="form-control" name="correo" [(ngModel)]="estudiante.correo" disabled>
+                    </div>
+                    <div class="form-group col-sm-6">
+
+                        <label for="sexo" class="input-label">Sexo</label>
+                        <div class="col-sm-12">
+                            <select [(ngModel)]="estudiante.sexo" class="form-select" name="sexo">
+                                <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
+                                <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    
+
+                    
+                </div>
+                <div class="row mt-2">
+                    <div class="form-group col-sm-3">
+                        <label for="nivel" class="input-label">Nivel</label>
+                                <div class="col-sm-12">
+                                    <select [compareWith]="compararNivel" [(ngModel)]="estudiante.nivel" class="form-select" name="nivel">
+                                        <option [ngValue]="undefined">--- Seleccionar nivel ---</option>
+                                        <option *ngFor="let nivel of niveles" [ngValue]="nivel">{{nivel.nombre}}</option>
+                                    </select>
+                                </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="turno" class="input-label">Turno</label>
+                                <div class="col-sm-12">
+                                    <select [compareWith]="compararTurno" [(ngModel)]="estudiante.turno" class="form-select" name="turno">
+                                        <option [ngValue]="undefined">--- Seleccionar turno ---</option>
+                                        <option *ngFor="let turno of turnos" [ngValue]="turno">{{turno.nombre}}</option>
+                                    </select>
+                                </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="grado" class="input-label">Grado</label>
+                                <div class="col-sm-12">
+                                    <select [compareWith]="compararGrado" [(ngModel)]="estudiante.grado" class="form-select" name="grado">
+                                        <option [ngValue]="undefined">--- Seleccionar grado ---</option>
+                                        <option *ngFor="let grado of grados" [ngValue]="grado">{{grado.nombre}}</option>
+                                    </select>
+                                </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="aula" class="input-label">Aula</label>
+                        <div>
+                            <select [compareWith]="compararAula" [(ngModel)]="estudiante.aulaEstudiante" class="form-select" name="aula">
+                                <option [ngValue]="undefined">--- Seleccionar una aula ---</option>
+                                <option *ngFor="let aula of aulas" [ngValue]="aula">{{ aula.nombre }} {{aula.seccion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                <div class="row mt-2">
+                <div class="form-group">
+                    <label for="domicilio" class="input-label">Domicilio del estudiante</label>
+                    <input type="text" class="form-control" name="domicilio" [(ngModel)]="estudiante.domicilio">
+                </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-8">
+                        <button *ngIf="!estudiante.id" class="btn" (click)="crear()">Crear</button>
+                        <button *ngIf="estudiante.id" class="btn mt-3" style="background-color: #164e85; border-color: #164e85; color: #fff;"
+                        (click)="actualizar()" >Actualizar</button>
+                    </div>
+                </div>
+
+            </form>
+
+            
+        </div>
+        
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+    </div>

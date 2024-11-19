@@ -1,0 +1,45 @@
+
+<div class="card mt-2">
+
+  <div class="card-body">
+    <h5>Aulas Registradas</h5>
+    <button class="btn btn-sm" [routerLink]="[ 'form']">Nueva aula</button>
+    <hr>
+    <div class="col-md-12 row">
+      <div class="col-md-12">
+        <div class="alert alert-info" role="alert" *ngIf="aulas.length == 0">
+          No hay aulas registradas. 
+        </div>
+        <div class="row row-cols-1 row-cols-md-4" *ngIf="aulas.length > 0">
+          <div class="col" *ngFor="let aula of aulas" >
+            <div class="card mb-2">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              {{aula.nombre}} {{aula.seccion}} <span class="badge bg-primary rounded-pill"  data-bs-toggle="tooltip" data-bs-placement="top" title="{{aula.cantidadEstudiante}} estudiantes asignados">{{aula.cantidadEstudiante}}</span>
+            </div>
+            <ul class="list-group list-group-flush">
+              <div class="row p-3">
+                <ul class="list-group px-2">
+                  <a [routerLink]="[ 'form', aula.id ]" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-info text-center">Ver aula</li>
+                </a>
+                <a [routerLink]="[ aula.id, 'clases' ]" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-success text-center">Ver clases</li>
+                </a>
+                <a [routerLink]="[ aula.id, 'clases', 'horario' ]" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-primary text-center">Ver horario</li>
+                </a>
+                </ul>
+              </div>
+            </ul>
+          
+        </div>
+      </div>
+      </div>
+
+      </div>
+    
+    </div>
+  </div>
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+</div>
+

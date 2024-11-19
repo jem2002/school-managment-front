@@ -1,0 +1,24 @@
+.container-login {
+    height: 100vh;
+    background-color: #164E85;
+}
+
+.d-flex {
+    height: 100vh;
+}
+
+.card {
+    min-width: 300px;
+    width: 450px;
+}
+
+.btn {
+    background-color: #164E85;
+    color: #fff;
+    font-weight: 600;
+}
+
+input {
+    background-color: #F2F2F2;
+    border: none;
+}

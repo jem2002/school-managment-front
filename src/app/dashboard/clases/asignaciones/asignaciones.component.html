@@ -1,0 +1,185 @@
+<div style="width: 100%; min-height: calc(100vh - 117px)" class="d-flex">
+    <div class="sidebar">
+        <div class="card h-100">
+            <div class="card-header bg-white d-flex justify-content-between">
+                <h5 class="mb-0">{{asignacion.titulo}}</h5>
+                <div>
+
+                    <button class="btn btn-danger btn-sm" (click)="eliminarAsignacion(asignacion.id)" *ngIf="!isEstudiante">Eliminar</button>
+                    <button (click)="regresar()" class="btn btn-light btn-sm ms-1">&laquo; regresar</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <small><b>Estado de la asignación: </b><span class="badge bg-success" *ngIf="asignacion.activo">Activo</span> <span class="badge bg-danger" *ngIf="!asignacion.activo">Inactivo</span></small>
+                <hr>
+                <small><b>Descripción:</b> <br>{{asignacion.descripcion}}</small>
+                <hr>
+                <small> <b>Fecha Creada:</b> {{asignacion.fechaCreada | date: 'mediumDate'}}</small>
+                <hr>
+                <small><b>Fecha Inicio:</b> {{asignacion.fechaInicio | date: 'medium'}}</small>
+                <hr>
+                <small> <b>Fecha Fin:</b> {{asignacion.fechaFin | date: 'medium'}}</small>
+                <hr>
+                <button class="btn btn-outline-primary btn-sm float-end" type="button" data-bs-toggle="modal"
+              data-bs-target="#crearAsignación" *ngIf="!isEstudiante">Modificar asignación</button>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="asignacion flex-fill ms-3 ">
+        <div class="card h-100">
+            <div class="card-header bg-white"><h5 class="mb-0">Respuestas de la asignación</h5></div>
+            <div class="container mt-4" >
+                <ul class="list-group" *ngIf="!isEstudiante">
+                    <!-- <li class="list-group-item" aria-disabled="true" *ngFor="let respuesta of respuestasAsignacion">
+                        <a href="{{URL_BACKEND}}/api/clases/uploads/{{respuesta.archivo}}" style="text-decoration: none;">
+                        <small >{{ respuesta.nombresEstudiante}}</small>
+                        </a>
+                        
+                    </li> -->
+                    <div class="alert alert-info" role="alert" *ngIf="respuestasAsignacion?.length == 0"
+                    style="font-size: 13px;">
+                    No hay asignaciones respuestas registradas. 
+                  </div>
+                    <div class="input-group" *ngFor="let respuesta of respuestasAsignacion">
+                        <label class="input-group-text col-7 bg-white" for="inputGroupFile02"><a href="{{URL_BACKEND}}/api/clases/uploads/{{respuesta.archivo}}" style="text-decoration: none;"><small>{{ respuesta.nombresEstudiante}}</small></a></label>
+                        <input type="number" class="form-control col-2 text-center" [(ngModel)]="respuesta.nota" #nota="ngModel" minlength="2" maxlength="2" min="0" max="20" oninput="validity.valid||(value='');">
+                        <button class="btn btn-outline-primary col-3" for="inputGroupFile02" (click)="actualizarRespuestas(nota.value, respuesta.id)">Asignar nota</button>
+                    </div>
+                   
+                    
+                </ul>
+                <div *ngIf="isEstudiante">
+                    <p><b class="text-danger">Importante:</b> Enviar la respuesta antes de la fecha final.</p>
+                    <div class="alert alert-danger" role="alert" *ngIf="!asignacion.activo"
+                    style="font-size: 13px;">
+                    La asignación no está habilitada.
+                  </div>
+                    <div class="input-group" *ngIf="!respuestaEncontrada && asignacion.activo">
+
+                        <input (change)="seleccionarArchivo($event)" type="file" class="form-control my-4" id="inputGroupFile04"
+                          aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                        <button (click)="crearRespuestaAsignacion()" class="btn btn-outline-primary my-4" type="button"
+                          id="inputGroupFileAddon04">Enviar respuesta</button>
+                    </div>
+
+                    <div *ngIf="respuestaEncontrada">
+                        <p class="text-success">Su respuesta ha sido enviada.</p>
+                        <small>Archivo: </small>
+                        <a href="{{URL_BACKEND}}/api/clases/uploads/{{respuestaEncontrada.archivo}}" style="text-decoration: none;">
+                            <small >{{ respuestaEncontrada.archivo}}</small>
+                            
+                        </a>
+                        <small class="ms-1" *ngIf="respuestaEncontrada.nota != null">- Nota asignada: <span class="ms-2 badge bg-primary" [ngClass]="{'bg-danger': respuestaEncontrada.nota < NOTA_APROBATORIA}">{{ respuestaEncontrada.nota }}</span></small>
+                        <button class="btn btn-danger btn-sm ms-3" (click)="eliminarRespuesta(respuestaEncontrada.id)" *ngIf="respuestaEncontrada.nota == null">Eliminar</button>
+                    </div>
+                </div>
+                
+
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="crearAsignación" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="crearAsignación" aria-hidden="true" *ngIf="!isEstudiante">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 600px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearAsignación">Nueva asignación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #asignacionForm="ngForm">
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label for="titulo" class="input-label">Título</label>
+                <input type="text" class="form-control" name="titulo" [(ngModel)]="asignacion.titulo" required>
+  
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label for="desripción" class="input-label">Descripción</label>
+                <input type="text" class="form-control" name="desripción" [(ngModel)]="asignacion.descripcion" required>
+  
+              </div>
+  
+            </div>
+  
+            <div class="row">
+              <div class="form-group col-sm-8">
+                <label for="fechaInicio" class="input-label">Fecha inicio</label>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </div>
+                  <input type="text" name="fechaInicio" placeholder="Elegir fecha" class="form-control" bsDatepicker
+                    [bsConfig]="bsConfig" autocomplete="off" [(ngModel)]="asignacion.fechaInicio" required>
+                </div>
+  
+  
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="hora" class="input-label">Hora</label>
+                <div class="col-sm-12">
+                  <select [(ngModel)]="horaInicioSeleccionada" class="form-control" name="horaInicio" required>
+                    <option [ngValue]="undefined">-- Seleccionar --</option>
+                    <option *ngFor="let hora of horaInicio" [ngValue]="hora">{{hora}}</option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="row">
+              <div class="form-group col-sm-8">
+                <label for="fechaFin" class="input-label">Fecha fin</label>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </div>
+                  <input type="text" name="fechaFin" placeholder="Elegir fecha" class="form-control" bsDatepicker
+                    [bsConfig]="bsConfig" autocomplete="off" [(ngModel)]="asignacion.fechaFin" required>
+                </div>
+  
+  
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="hora" class="input-label">Hora</label>
+                <div class="col-sm-12">
+                  <select [(ngModel)]="horaFinSeleccionada" class="form-control" name="horaFin" required>
+                    <option [ngValue]="undefined">-- Seleccionar --</option>
+                    <option *ngFor="let hora of horaFin" [ngValue]="hora">{{hora}}</option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="row mt-2">
+              <div class="form-group col-sm-12">
+                <button class="btn btn-primary float-end" (click)="actualizarAsignacion()" [disabled]="!asignacionForm.form.valid">Modificar asignación</button>
+              </div>
+  
+            </div>
+          </form>
+         
+
+        </div>
+
+      </div>
+    </div>
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-running-dots">
+      <p style="color: white"> Cargando... </p>
+    </ngx-spinner>
+  </div>

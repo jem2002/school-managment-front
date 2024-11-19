@@ -1,0 +1,73 @@
+
+<div class="card">
+    <div class="card-header bg-white">Registrar notas</div>
+    <h4 class="card-title">
+        <a class="btn btn-light btn-sm" (click)="regresar()">&laquo; regresar</a>
+    </h4>
+    <div class="alert alert-info mx-2" role="alert" *ngIf="estudiantes.length == 0">
+        No hay estudiantes registrados en el aula. Registre estudiantes.
+      </div>
+    <div class="card-body" *ngIf="estudiantes.length > 0">
+        <div class="d-flex">
+            <form [formGroup]="form" (ngSubmit)="enviar(form.value)">
+                <div formArrayName="notasForm">
+                    <div class="d-flex colortexto">
+        
+                    
+                    <div class="col-4">
+                        NOMBRES Y APELLIDOS
+                    </div>
+                    <div class="col-1 text-center">
+                        BIM1
+                    </div>
+                    <div class="col-1 text-center">
+                        BIM2
+                    </div>
+                    <div class="col-1 text-center">
+                        BIM3
+                    </div>
+                    <div class="col-1 text-center">
+                        BIM4
+                    </div>
+                    <div class="col-2 ms-4">
+                        PROMEDIO FINAL
+                    </div>
+                    </div>
+                    <hr class="mt-0">
+                    <div *ngFor="let nota of notasForm.controls">
+                        <div [formGroup]="nota" class="d-flex col-12 ">
+                            <div class="col-4 d-flex list-group-item py-0">
+                                <input type="text" formControlName="nombreEstudiante"  class="form-control pad-bottom" style="background: none; border: none;">
+                            </div>
+                            <div class="col-1 ">
+                                <input type="text" formControlName="bimestre1"  class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre1.value < NOTA_APROBATORIA}" (keypress)="numberOnly($event)" maxlength="2">
+                            </div>
+                            <div class="col-1">
+                                <input type="text" formControlName="bimestre2" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre2.value < NOTA_APROBATORIA}" (keypress)="numberOnly($event)" maxlength="2">
+                            </div>
+                            <div class="col-1">
+                                <input type="text" formControlName="bimestre3" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.bimestre3.value < NOTA_APROBATORIA}" (keypress)="numberOnly($event)" maxlength="2">
+                            </div>
+                            
+                            <div class="col-1">
+                                <input type="text" formControlName="bimestre4" class="form-control text-center pad-bottom"[ngClass]="{'desaprobado': nota.controls.bimestre4.value < NOTA_APROBATORIA}" (keypress)="numberOnly($event)" maxlength="2">
+                            </div>
+                            <div class="col-1 ms-4">
+                                <input type="text" formControlName="promedioFinal" class="form-control text-center pad-bottom" [ngClass]="{'desaprobado': nota.controls.promedioFinal.value < NOTA_APROBATORIA}" style="background-color: #FFF;">
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div >
+                </div>
+                
+            
+            <button class="btn btn-color mt-4" type="submit">Guardar notas</button>
+            </form>
+        </div>
+        
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+    </div>
+    
+</div>

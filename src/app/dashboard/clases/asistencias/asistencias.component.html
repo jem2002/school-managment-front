@@ -1,0 +1,118 @@
+<div class="card" *ngIf="estudiantes.length == 0 && asistencias.length == 0">
+  <div class="alert alert-info mt-3 mx-3 d-flex justify-content-between" role="alert">
+    <span>No hay estudiantes en el aula. Asigne estudiantes.</span>
+    <a *ngIf="!idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases' ]" class="btn btn-light btn-sm">&laquo; regresar</a>
+    <a *ngIf="idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases',idClase ]" class="btn btn-light btn-sm">&laquo; regresar</a>
+  </div>
+</div>
+<div class="card" *ngIf="estudiantes.length > 0 ||  asistencias.length > 0">
+  <div class="card-header bg-white">
+    Marcar asistencia
+
+  </div>
+  <h4 class="card-title">
+    <a *ngIf="!idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases' ]" class="btn btn-light btn-sm">&laquo; regresar</a>
+    <a *ngIf="idClase" [routerLink]="[ '/dashboard/aulas',idAula,'clases',idClase ]" class="btn btn-light btn-sm">&laquo; regresar</a>
+  </h4>
+  <div class="d-flex justify-content-between col-12">
+    <div class=" col-md-3 ps-3">
+      <div class="input-group ">
+        <div class="input-group-text" style="background-color: #164e85; color: #fff;">
+          <i class="far fa-calendar-alt"></i>
+        </div>
+        <input type="text"
+        name="fechaNacimiento"
+        placeholder="Elegir fecha"
+        class="form-control"
+        bsDatepicker
+        [maxDate]="maxDate"
+        [bsConfig]="bsConfig"
+        [(ngModel)]="datePicked"
+        autocomplete="off"
+        required>
+        <button (click)="buscarAsistencias()" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button>
+      </div>
+
+    </div>
+    <div class="col-md-3 pe-3">
+        
+      <p class="float-end">{{ fechaTransformada}}</p>
+    </div>
+  </div>
+
+  
+  <div class="card-body">
+    <table class="table ">
+      <thead style="background-color: #164e85; color: #fff;">
+        <tr>
+          <th class="borders">
+            Nombres y Apellidos
+          </th>
+          <th class="borders">
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="busquedaActivada == false">
+        <tr *ngFor="let estudiante of estudiantes">
+          <td class="borders" >{{estudiante.nombres}} {{ estudiante.apellidoPaterno }} {{ estudiante.apellidoMaterno }}</td>
+          <td class="borders" >
+            <div class="d-flex justify-content-end me-5">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" (click)="asistencia(estudiante,'PUNTUAL')"  name="asistencia{{estudiante.id}}falta" id="asistencia{{estudiante.id}}puntual" [checked]="estudiante.asistenciaHoy == 'PUNTUAL'">
+                <label class="form-check-label text-primary">
+                  PUNTUAL
+                </label>
+              </div>
+              <div class="form-check mx-3">
+                <input class="form-check-input" type="radio" (click)="asistencia(estudiante,'TARDANZA')"  name="asistencia{{estudiante.id}}falta" id="asistencia{{estudiante.id}}tarde" [checked]="estudiante.asistenciaHoy == 'TARDANZA'" >
+                <label class="form-check-label" style="color: #ff851b!important">
+                  TARDANZA
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" (click)="asistencia(estudiante,'FALTA')"  name="asistencia{{estudiante.id}}falta" id="asistencia{{estudiante.id}}falta" [checked]="estudiante.asistenciaHoy == 'FALTA'">
+                <label class="form-check-label" style="color: #ff6473!important">
+                  FALTA
+                </label>
+              </div>
+            </div>
+            
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="busquedaActivada">
+        <tr *ngFor="let asistencia of asistencias">
+          <td class="borders" >{{ asistencia.estudiante.nombres }} {{ asistencia.estudiante.apellidoPaterno }} {{ asistencia.estudiante.apellidoMaterno }}</td>
+          <td class="borders" >
+            <div class="d-flex justify-content-end me-5">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" (click)="asistenciaPorBusqueda(asistencia,'PUNTUAL')"  name="asistencia{{asistencia.id}}puntual" id="asistencia{{asistencia.id}}puntual" [checked]="asistencia.estado == 'PUNTUAL'">
+                <label class="form-check-label text-primary" id="asistencia{{asistencia.id}}puntual">
+                  PUNTUAL
+                </label>
+              </div>
+              <div class="form-check mx-3">
+                <input class="form-check-input" type="radio" (click)="asistenciaPorBusqueda(asistencia,'TARDANZA')"  name="asistencia{{asistencia.id}}tarde" id="asistencia{{asistencia.id}}tarde" [checked]="asistencia.estado == 'TARDANZA'" >
+                <label class="form-check-label" style="color: #ff851b!important" id="asistencia{{asistencia.id}}tarde">
+                  TARDANZA
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" (click)="asistenciaPorBusqueda(asistencia,'FALTA')"  name="asistencia{{asistencia.id}}falta" id="asistencia{{asistencia.id}}falta" [checked]="asistencia.estado == 'FALTA'">
+                <label class="form-check-label" style="color: #ff6473!important" id="asistencia{{asistencia.id}}falta">
+                  FALTA
+                </label>
+              </div>
+            </div>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-color" (click)="cargarAsistencia()" >Guardar Asistencia</button>
+  </div>
+</div>
+
+    
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>

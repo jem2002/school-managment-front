@@ -1,0 +1,180 @@
+
+    <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+        <li *ngFor="let error of errores" class="ms-4">{{ error }}</li>
+    </ul>
+<div class="card mb-5">
+    <div class="card-header bg-white" *ngIf="!empleado.id">Crear Docente</div>
+    <div class="card-header bg-white" *ngIf="empleado.id">Actualizar Docente</div>
+    <h4 class="card-title">
+        <a [routerLink]="['/dashboard/empleados']" class="btn btn-light btn-sm">&laquo; regresar</a>
+    </h4>
+    <div class="card-body">
+        
+        <form #docenteForm="ngForm">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="nombres" class="input-label">Nombres</label>
+                <input type="text" class="form-control" name="nombres" [(ngModel)]="empleado.nombres" required minlength="2" maxlength="40" #nombres="ngModel">
+                <div class="text-danger" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+                    <div *ngIf="nombres.errors.required">
+                        Nombres es requerido.
+                    </div>
+                    <div *ngIf="nombres.errors.minlength || nombres.errors.maxlength">
+                        Nombres debe ser entre 2 y 40 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoPaterno" class="input-label">Apellido Paterno</label>
+                <input type="text" class="form-control" name="apellidoPaterno" [(ngModel)]="empleado.apellidoPaterno" required minlength="2" maxlength="20" #apellidoPaterno="ngModel">
+                <div class="text-danger" *ngIf="apellidoPaterno.invalid && (apellidoPaterno.dirty || apellidoPaterno.touched)">
+                    <div *ngIf="apellidoPaterno.errors.required">
+                        Apellido Paterno es requerido
+                    </div>
+                    <div *ngIf="apellidoPaterno.errors.minlength || apellidoPaterno.errors.maxlength">
+                        Apellido paterno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoMaterno" class="input-label">Apellido Materno</label>
+                <input type="text" class="form-control" name="apellidoMaterno" [(ngModel)]="empleado.apellidoMaterno" required minlength="2" maxlength="20" #apellidoMaterno="ngModel">
+                <div class="text-danger" *ngIf="apellidoMaterno.invalid && (apellidoMaterno.dirty || apellidoMaterno.touched)">
+                    <div *ngIf="apellidoMaterno.errors.required">
+                        Apellido materno es requerido
+                    </div>
+                    <div *ngIf="apellidoMaterno.errors.minlength || apellidoMaterno.errors.maxlength">
+                        Apellido materno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group col-sm-4">
+                <label for="dni" class="input-label">dni</label>
+                <input type="text" class="form-control" pattern="[0-9]+" name="dni" [(ngModel)]="empleado.dni" required  minlength="8" maxlength="11" #dni="ngModel">
+                <div class="text-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+                    <div *ngIf="dni.errors.required">
+                        dni es requerido
+                    </div>
+                    <div *ngIf="dni.errors.minlength || dni.errors.maxlength">
+                        dni debe tener entre 8 a 10 caracteres.
+                    </div>
+                    <div *ngIf="dni.errors?.pattern">
+                        dni inválido.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="fechaNacimiento" class="input-label">Fecha de Nacimiento</label>
+
+                <div class="input-group">
+                    <div class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <input type="text"
+                    name="fechaNacimiento"
+                    placeholder="Elegir fecha"
+                    class="form-control"
+                    bsDatepicker
+                    [maxDate]="maxDate"
+                    [bsConfig]="bsConfig"
+                    autocomplete="off"
+                    [(ngModel)]="empleado.fechaNacimiento" required #fechaNacimiento="ngModel">
+                </div>
+                <div class="text-danger" *ngIf="fechaNacimiento.invalid && (fechaNacimiento.dirty || fechaNacimiento.touched)">
+                    <div *ngIf="fechaNacimiento.errors.required">
+                        La fecha es requerida.
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="celular" class="input-label">Nro. Celular</label>
+                <input type="text" class="form-control" name="celular" pattern="[0-9]+" [(ngModel)]="empleado.celular" required minlength="10" maxlength="10" #celular="ngModel">
+                <div class="text-danger" *ngIf="celular.invalid && (celular.dirty || celular.touched)">
+                    <div *ngIf="celular.errors.required">
+                        Celular es requerido
+                    </div>
+                    <div *ngIf="celular.errors.minlength || celular.errors.maxlength">
+                        Celular debe tener 10 caracteres.
+                    </div>
+                    <div *ngIf="celular.errors?.pattern">
+                        Celular inválido.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+        <div class="form-group col-sm-6">
+            <label for="domicilio" class="input-label">Domicilio del empleado</label>
+            <input type="text" class="form-control" name="domicilio" [(ngModel)]="empleado.domicilio" required minlength="10" maxlength="80" #domicilio="ngModel">
+            <div class="text-danger" *ngIf="domicilio.invalid && (domicilio.dirty || domicilio.touched)">
+                <div *ngIf="domicilio.errors.required">
+                    Domicilio es requerido
+                </div>
+                <div *ngIf="domicilio.errors.minlength || domicilio.errors.maxlength">
+                    Domicilio debe ser entre 10 y 80 caracteres.
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="sexo" class="input-label">Sexo</label>
+                    <div class="col-sm-12">
+                        <select [(ngModel)]="empleado.sexo" class="form-select" name="sexo">
+                            <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
+                            <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
+                        </select>
+                    </div>
+        </div>
+
+        
+
+
+        <div class="form-group col-12 row mt-4">
+                    <div class="col-6">
+ 
+                        <div>
+                            <label for="nombre" class="input-label">Nueva especialidad</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" [(ngModel)]="especialidad.nombre" placeholder="Ingrese el nombre de la especialidad" aria-label="Ingrese el nombre de la especialidad" name="especialidad" aria-describedby="button-addon2">
+                                <button class="btn" style="background-color: #164e85 ;border-color: #164e85 ;color: #fff;" type="button" id="button-addon2" (click)="crearEspecialidad()">Crear</button>
+                            </div>
+                            <div class="text-danger" *ngIf="!especialidadValida">
+                                <div>
+                                    El campo es requerido. Tiene que ser mínimo 6 caracteres.
+                                </div>
+
+                            </div>
+                        </div>
+
+                        </div>
+                        
+                    
+                    <div class="row col-6">
+                        <label for="sexo" class="input-label mb-2">Especialidades</label>
+                        <div class="col-sm-12 col-xxl-6 " *ngFor="let especialidad of especialidades">
+                            <div class="form-check " >
+                                <input class="form-check-input" type="checkbox" id="check{{especialidad.id}}" (click)="asignarEspecialidad(especialidad)" [checked]="especialidad.asignado">
+                                <label class="form-check-label" for="check{{especialidad.id}}">
+                                {{especialidad.nombre}}
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+        </div>
+
+        </div>
+
+        <div class=" mt-3">
+            <button *ngIf="!empleado.id" class="btn btn-xs" style="background-color: #164e85 ;border-color: #164e85 ;color: #fff;" (click)="crear()" [disabled]="!docenteForm.form.valid">Crear docente</button>
+            <button *ngIf="empleado.id" class="btn btn-xs" style="background-color: #164e85 ;border-color: #164e85 ;color: #fff;" (click)="actualizar()" [disabled]="!docenteForm.form.valid">Actualizar docente</button>
+        </div>
+        
+    </form>
+    </div>
+    
+    
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+</div>

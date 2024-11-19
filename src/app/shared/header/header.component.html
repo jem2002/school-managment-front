@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg  sticky-top" id="navbar"  *ngIf="isAuthenticated">
+    <div class="container-fluid">
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        
+      </div>
+        <ul>
+          <li><i class="fas fa-user-alt"></i></li>
+          <li><i class="far fa-question-circle"></i></li>
+          <li (click)="onLogout()" style="cursor: pointer;"><i class="fas fa-door-open"></i></li>
+        </ul>
+    </div>
+  </nav>

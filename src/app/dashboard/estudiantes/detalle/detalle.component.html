@@ -1,0 +1,253 @@
+    <div *ngIf="modalActivo" class="abrir-modal animacion fadeIn">
+  
+      <div *ngIf="modalActivo" class="modal" tabindex="-1" style="display: block">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" *ngIf="estudiante">
+            <div class="modal-header">
+              <h6 class="modal-title">Datos del estudiante</h6>
+            
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="nombres" class="input-label">Nombres</label>
+                    <input type="text" class="form-control" name="nombres" [(ngModel)]="estudiante.nombres" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoPaterno" class="input-label">Apellido Paterno</label>
+                    <input type="text" class="form-control" name="apellidoPaterno" [(ngModel)]="estudiante.apellidoPaterno" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoMaterno" class="input-label">Apellido Materno</label>
+                    <input type="text" class="form-control" name="apellidoMaterno" [(ngModel)]="estudiante.apellidoMaterno" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="form-group col-sm-4">
+                    <label for="dni" class="input-label">DNI</label>
+                    <input type="text" class="form-control" name="dni" [(ngModel)]="estudiante.dni" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="fechaNacimiento" class="input-label" >Fecha de Nacimiento</label>
+    
+                    <div class="input-group">
+                        <div class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <input type="text" class="form-control" name="domicilio" [(ngModel)]="estudiante.fechaNacimiento" disabled>
+                    </div>
+    
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="celular" class="input-label">Nro. Celular</label>
+                    <input type="text" class="form-control" name="celular" [(ngModel)]="estudiante.celular" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="form-group col-sm-6">
+                    <label for="correo" class="input-label">Correo</label>
+                    <input type="text" class="form-control" name="correo" [(ngModel)]="estudiante.correo" disabled>
+                </div>
+                <div class="form-group col-sm-6">
+    
+                    <label for="sexo" class="input-label">Sexo</label>
+                    <input type="text" class="form-control" name="sexo" [(ngModel)]="estudiante.sexo" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+              <div class="form-group">
+                  <label for="domicilio" class="input-label">Domicilio del estudiante</label>
+                  <input type="text" class="form-control" name="domicilio" [(ngModel)]="estudiante.domicilio" disabled>
+              </div>
+              </div>
+            <div class="row mt-2">
+                <div class="form-group col-sm-3">
+                    <label for="nivel" class="input-label">Nivel</label>
+                    
+                    <div class="input-group">
+                      <div class="input-group-text">
+                        <i class="fas fa-cubes"></i>
+                      </div>
+                      <input type="text" class="form-control" name="nivel" [(ngModel)]="estudiante.nivel.nombre" disabled>
+                  </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="turno" class="input-label">Turno</label>
+                    <div class="input-group">
+                      <div class="input-group-text">
+                        <i class="far fa-sun "></i>
+                      </div>
+                      <input type="text" class="form-control" name="turno" [(ngModel)]="estudiante.turno.nombre" disabled>
+                  </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="grado" class="input-label">Grado</label>
+                    <div class="input-group" >
+                      <div class="input-group-text">
+                        <i class="fas fa-cube"></i>
+                      </div>
+                      <input type="text" class="form-control" name="grado" [(ngModel)]="estudiante.grado.nombre" disabled>
+                  </div>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="aula" class="input-label">Aula</label>
+                    <div class="input-group" *ngIf="estudiante.aulaEstudiante">
+                      <div class="input-group-text">
+                        <i class="fab fa-dashcube"></i>
+                      </div>
+                      <input type="text" class="form-control" name="aula" [(ngModel)]="estudiante.aulaEstudiante.nombre" disabled>
+                      <input type="text" class="form-control text-center" name="aula" [(ngModel)]="estudiante.aulaEstudiante.seccion" disabled>
+                  </div>
+                </div>
+                </div>
+
+            <h6 class="mt-4">Datos del apoderado</h6>
+            <hr>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="nombresApo" class="input-label" required>Nombres</label>
+                    <input type="text" class="form-control" name="nombresApo" [(ngModel)]="estudiante.apoderado.nombres" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoPaternoApo" class="input-label" >Apellido Paterno</label>
+                    <input type="text" class="form-control" name="apellidoPaternoApo" [(ngModel)]="estudiante.apoderado.apellidoPaterno" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoMaternoApo" class="input-label" >Apellido Materno</label>
+                    <input type="text" class="form-control" name="apellidoMaternoApo" [(ngModel)]="estudiante.apoderado.apellidoMaterno" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="form-group col-sm-6">
+                    <label for="dniApo" class="input-label" >DNI</label>
+                    <input type="text" class="form-control" name="dniApo" [(ngModel)]="estudiante.apoderado.dni" disabled>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="celularApo" class="input-label" >Celular</label>
+                    <input type="text" class="form-control" name="celularApo" pattern="[0-9]+" [(ngModel)]="estudiante.apoderado.celular" disabled>
+                </div>
+            </div>
+
+            
+            <button class="btn btn-success btn-sm mt-3" (click)="buscarMatriculas()">Buscar matrículas</button>
+
+            <div class="row mt-3 mx-1" *ngIf="matriculas.length > 0">
+
+
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Año</th>
+                    <th>Colegio Proc.</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let matri of matriculas">
+                    <td>{{matri.anio}}</td>
+                    <td>{{matri.iEProcedencia}}</td>
+                    <td class="d-flex justify-content-around">
+                      <button class="btn btn-primario btn-sm " disabled>Ver</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+           
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+          </div>
+
+
+          <div class="modal-content" *ngIf="empleado">
+            <div class="modal-header">
+              <h6 class="modal-title">Datos del empleado</h6>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="nombres" class="input-label">Nombres</label>
+                    <input type="text" class="form-control" name="nombres" [(ngModel)]="empleado.nombres" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoPaterno" class="input-label">Apellido Paterno</label>
+                    <input type="text" class="form-control" name="apellidoPaterno" [(ngModel)]="empleado.apellidoPaterno" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="apellidoMaterno" class="input-label">Apellido Materno</label>
+                    <input type="text" class="form-control" name="apellidoMaterno" [(ngModel)]="empleado.apellidoMaterno" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="form-group col-sm-4">
+                    <label for="dni" class="input-label">DNI</label>
+                    <input type="text" class="form-control" name="dni" [(ngModel)]="empleado.dni" disabled>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="fechaNacimiento" class="input-label" >Fecha de Nacimiento</label>
+    
+                    <div class="input-group">
+                        <div class="input-group-text">
+                          <i class="far fa-calendar-alt"></i>
+                        </div>
+                        <input type="text" class="form-control" name="domicilio" [(ngModel)]="empleado.fechaNacimiento" disabled>
+                    </div>
+    
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="celular" class="input-label">Nro. Celular</label>
+                    <input type="text" class="form-control" name="celular" [(ngModel)]="empleado.celular" disabled>
+                </div>
+            </div>
+            <div class="row mt-2">
+
+              <div class="form-group col-sm-8">
+                <label for="domicilio" class="input-label">Domicilio del empleado</label>
+                <input type="text" class="form-control" name="domicilio" [(ngModel)]="empleado.domicilio" disabled>
+              </div>
+
+                <div class="form-group col-sm-4">
+                    <label for="sexo" class="input-label">Sexo</label>
+                    <input type="text" class="form-control" name="sexo" [(ngModel)]="empleado.sexo" disabled>
+                </div>
+
+            </div>
+
+
+            <div class="row mt-2">
+              <label for="sexo" class="input-label mb-2">Especialidades</label>
+              <div class="col-sm-6 col-md-6 col-xxl-6 " *ngFor="let especialidad of empleado.especialidades">
+                  <div class="form-check " >
+                      <label class="form-check-label" for="check{{especialidad.id}}">
+                      -> {{especialidad.nombre}}
+                      </label>
+                    </div>
+              </div>
+              <div *ngIf="empleado?.especialidades.length == 0">
+                <div class="alert alert-info" role="alert">
+                  No hay especialidades asignadas.
+                </div>
+              </div>
+          </div>
+            
+  
+  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+            </div>
+          </div>
+
+
+        </div>
+    </div>
+
+    
+    </div>
+
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>

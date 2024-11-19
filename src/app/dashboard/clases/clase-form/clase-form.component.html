@@ -1,0 +1,124 @@
+
+<div class="card">
+  <div class="card-header bg-white">
+    <h6 class="modal-title" id="crearClaseModalLabel">Actualizar clase</h6>
+  </div>
+  <h4 class="card-title">
+    <a [routerLink]="['/dashboard/aulas/form', idAula]" class="btn btn-light btn-sm">&laquo; regresar</a>
+  </h4>       
+  <div class="card-body">
+    <form #claseForm="ngForm">
+      <div class="row mb-2">
+
+        <div class="col-4">
+          <label for="cursoClase" class="ms-1">Curso</label>
+          <div class="col-sm-12">
+            <select [compareWith]="compararCurso" [(ngModel)]="claseEncontrada.curso" class="form-control form-select" name="cursoClase" required #curso="ngModel">
+              <option [ngValue]="undefined">
+                --- Seleccionar curso ---
+              </option>
+              <option *ngFor="let curso of cursos" [ngValue]="curso">
+                {{ curso.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="text-danger" *ngIf="curso.invalid && (curso.dirty || curso.touched)">
+            <div *ngIf="curso.errors.required">
+                El campo es requerido.
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <label for="empleado" class="ms-1">Profesor</label>
+          <div class="col-sm-12">
+            <select [compareWith]="compararEmpleado" [(ngModel)]="claseEncontrada.empleado" class="form-control form-select" name="empleado">
+              <option [ngValue]="undefined">
+                --- Seleccionar profesor ---
+              </option>
+              <option *ngFor="let empleado of empleados" [ngValue]="empleado">
+                {{ empleado.nombres }} {{ empleado.apellidoPaterno }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-4">
+          <label for="empleado" class="ms-1">Acción</label>
+          <div class="col-sm-12">
+            <button class="btn btn-outline-primary" (click)="agregarFrecuencia()">Nueva frecuencia</button>
+          </div>
+        </div>
+
+        <div class="col-12 d-flex mt-4">
+          <div class="col-2">Día</div>
+          <div class="col-2">Inicio</div>
+          <div class="col-2">Fin</div>
+          <div class="col-1 text-center" *ngIf="frecuencias.length > 1">Eliminar</div>
+        </div>
+        <div class="col-12 d-flex mb-2" *ngFor="let frecuencia of frecuencias; let i = index">
+          <div class="col-2">
+            <div class="col-sm-12">
+              <select [compareWith]="compararDiasemana" [(ngModel)]="frecuencia.dia" class="form-control form-select " name="dia{{i}}" required #dia="ngModel">
+                <option [ngValue]="undefined">
+                  - Día -  
+                </option>
+                <option *ngFor="let dia of dias" [ngValue]="dia">
+                  {{ dia.nombre }}
+                </option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="dia.invalid && (dia.dirty || dia.touched)">
+              <div *ngIf="dia.errors.required">
+                  El campo es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-2 px-1">
+            <div class="col-sm-12">
+              <select [compareWith]="compararHora" [(ngModel)]="frecuencia.horario_inicio" class="form-control form-select " name="inicio{{i}}" required #inicio="ngModel">
+                <option [ngValue]="undefined">
+                   - Inicio - 
+                </option>
+                <option *ngFor="let hora of inicio_horas" [ngValue]="hora">
+                  {{ hora }}
+                </option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="inicio.invalid && (inicio.dirty || inicio.touched)">
+              <div *ngIf="inicio.errors.required">
+                  El campo es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="col-sm-12">
+              <select [compareWith]="compararHora" [(ngModel)]="frecuencia.horario_fin" class="form-control form-select " name="fin{{i}}" required #fin="ngModel">
+                <option [ngValue]="undefined">
+                   - Fin - 
+                </option>
+                <option *ngFor="let hora of inicio_horas" [ngValue]="hora">
+                  {{ hora }}
+                </option>
+              </select>
+            </div>
+            <div class="text-danger" *ngIf="fin.invalid && (fin.dirty || fin.touched)">
+              <div *ngIf="fin.errors.required">
+                  El campo es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="col-1 text-center" *ngIf="i!==0">
+            <div class="col-sm-12">
+              <button class="btn btn-outline-danger" (click)="quitarFrecuencia(frecuencia)"><i class="fas fa-trash"></i></button>
+            </div>
+          </div>
+
+        </div>
+
+        
+      </div>
+      <button class="btn btn-color" (click)="actualizarClase()" [disabled]="!claseForm.form.valid">Actualizar</button>
+    </form>
+  </div>
+  
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+</div>

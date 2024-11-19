@@ -1,0 +1,180 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+
+.container-dashboard{
+  min-height: calc(100vh - 53px);
+}
+
+
+#sidebar {
+  background: #164E85;
+  width: 220px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  color: #fff;
+  z-index: 1111;
+}
+
+#dashboard{
+  position: relative;
+  min-height: calc(100vh - 53px);
+  width: calc(100% - 220px);
+  left: 220px;
+  font-family: 'Poppins', sans-serif;
+  color: #41464b;
+}
+
+.dashboard-content{
+  font-family: 'Roboto', sans-serif;
+  
+  color: #164E85;
+}
+
+.admin {
+  font-size: 24px;
+  padding: 30px 20px 0 43px;
+  font-weight: 500;
+}
+
+.ul .li a{
+  font-weight: 400;
+  padding-left: 1.4rem;
+  display: block;
+  font-size: 1rem;
+}
+
+.ul .li:hover, .ul .li a:hover {
+  background: #043769;
+}
+
+.link-seleccionado {
+  background: #043769;
+}
+
+.col-3 {
+  text-align: center;
+}
+
+.logo:hover{
+  background: #164E85 !important;
+}
+
+.cards{
+  width: 100%;
+  padding: 20px 20px 0 20px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card-item{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 14px;
+  width: calc(100% / 4 - 35px);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow:  0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.card-item .card-left .title{
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.card-item .card-left .info {
+  font-size: 35px;
+  font-weight: 500;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.card-item .card-right {
+  background-color: #cce5ff;
+  color: #66b0ff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+.profesor .card-right{
+  background-color: #c1f2d8;
+  color: #2cd280;
+}
+
+.aula .card-right {
+  background-color: #ffe7b5;
+  color: #fec33c;
+}
+
+.cursos .card-right {
+  background-color: #f8d5d5;
+  color: #d55864;
+}
+
+.charts {
+  display: grid;
+  padding: 20px 37px;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr));
+  
+}
+
+.line-chart {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 15px 14px;
+  box-shadow:  0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-title {
+  font-size: 24px;
+  font-weight: 500;
+  
+}
+
+.pie-chart {
+  box-shadow:  0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 15px 14px;
+  
+}
+
+.chart-data {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1220px) {
+  .card-item {
+    width: calc(100% / 2 - 35px);
+  }
+
+  .pie-chart{
+    margin-left: 0;
+  }
+
+  .line-chart {
+    width: calc(100% / 1);
+    margin-bottom: 20px;
+
+  }
+}
+
+@media (max-width: 740px) {
+  .card-item {
+    width: calc(100% / 1 - 35px);
+  }
+}
+

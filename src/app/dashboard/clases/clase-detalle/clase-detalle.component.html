@@ -1,0 +1,319 @@
+<div class="card" *ngIf="clase">
+  <div class="card-body">
+    <div class="d-flex flex-wrap justify-content-between">
+
+      <div class="col-3">
+        <div class="d-flex">
+          <span class="ps-2 pb-1 col-10">
+            Profesor(a)
+          </span>
+          <div class=" px-3 py-1  col-2 ">
+
+          </div>
+        </div>
+        <div class="d-flex border">
+          <div class="py-1 text-center col-2 border-end">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <div class=" px-3 py-1 col-10 ">
+            <span>{{clase.empleado?.nombres.split(' ')[0]}} {{clase.empleado?.apellidoPaterno}}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-3">
+        <div class="d-flex">
+          <span class="ps-2 pb-1 col-10">
+            Turno
+          </span>
+          <div class=" px-3 py-1  col-2 ">
+
+          </div>
+        </div>
+        <div class="d-flex border">
+          <div class=" py-1 border-end text-center col-2">
+            <i class="far fa-sun "></i>
+          </div>
+          <div class=" px-3 py-1  col-10 ">
+            <span>{{clase.aula?.turno.nombre}}</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+        <div class="d-flex">
+          <span class="ps-2 pb-1 col-10">
+            Nivel
+          </span>
+          <div class=" px-3 py-1  col-2 ">
+
+          </div>
+        </div>
+        <div class="d-flex border">
+          <div class="py-1 border-end text-center col-2">
+            <i class="fas fa-cubes"></i>
+          </div>
+          <div class=" px-3 py-1 col-10">
+            <span>{{clase.aula?.nivel.nombre}}</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-3">
+        <div class="d-flex">
+          <span class="ps-2 pb-1 col-10">
+            Aula
+          </span>
+          <div class=" px-3 py-1  col-2 ">
+
+          </div>
+        </div>
+        <div class="d-flex border">
+          <div class=" py-1 border-end text-center col-2">
+            <i class="fab fa-dashcube"></i>
+          </div>
+          <div class=" px-3 py-1 col-10">
+            <span>{{clase.aula?.nombre}} {{clase.aula?.seccion}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <h5 class="mt-3">{{clase?.curso?.nombre}}</h5>
+      <div class="d-flex align-items-end">
+        <button [routerLink]="[ 'notas' ]" class="btn btn-outline-primary btn-sm py-0 mb-2 me-3"
+          *ngIf="!estudianteActivo">Subir notas</button>
+        <button [routerLink]="[ 'asistencias' ]" class="btn btn-outline-primary btn-sm py-0 mb-2 me-3"
+          *ngIf="!estudianteActivo">Marcar asistencia</button>
+        <h4>
+          <a (click)="regresar()" class="btn btn-light btn-sm py-0">&laquo; regresar</a>
+        </h4>
+      </div>
+    </div>
+
+
+    <hr class="mt-0">
+
+    <div class="col-12 d-flex pt-3">
+      <div class="col-5 ">
+        <div class="d-flex justify-content-between">
+          <p>Asignaciones del curso</p>
+          <p class="col-6" *ngIf="!estudianteActivo">
+            <button class="btn btn-outline-primary btn-sm py-0 float-end" type="button" data-bs-toggle="modal"
+              data-bs-target="#crearAsignación">Crear asignación</button>
+          </p>
+        </div>
+
+        <div class="overflow-auto" style="height: 60vh;">
+          <div class="alert alert-info" role="alert" *ngIf="asignacionesPorClase?.length == 0"
+            style="font-size: 13px;">
+            No hay asignaciones registradas. 
+          </div>
+
+          <!-- <ul class="list-group list-group-flush me-4" *ngIf="listaEstudiantes.length > 0">
+                <div class="card">
+                  <ul class="list-group list-group-flush">
+                    <li *ngFor="let estudiante of listaEstudiantes"
+                      class="list-group-item " style="font-size: 13px;">
+                      {{estudiante.nombres}}
+                      {{ estudiante.apellidoPaterno }}
+                      {{ estudiante.apellidoMaterno }}
+                    </li>
+                  </ul>
+                </div>
+              </ul> -->
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action " *ngFor="let asignacion of asignacionesPorClase"
+              [routerLink]="['asignaciones', asignacion.id]">
+              <div class="d-flex w-100 justify-content-between">
+                <small >{{asignacion.titulo}}</small>
+                <small>{{asignacion.fechaCreada}}</small>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex justify-content-between">
+          <p class="px-4 col-6">Materiales</p>
+          <p class="col-6" *ngIf="!estudianteActivo">
+            <button class="btn btn-outline-primary btn-sm py-0 float-end" type="button" data-bs-toggle="modal"
+              data-bs-target="#subirArchivo">Subir Archivo</button>
+          </p>
+
+        </div>
+
+        <div class="alert alert-info ms-4" role="alert" *ngIf="clase.materiales?.length == 0" style="font-size: 13px;">
+          No hay materiales registrados.
+        </div>
+
+        <div class="ms-4 overflow-auto" style="height: 60vh;" *ngIf="clase.materiales?.length > 0">
+
+          <div *ngFor="let material of clase.materiales">
+            <span>{{material.nombre}} - {{material.createAt | date:'mediumDate'}}</span>
+            <div class="d-flex justify-content-between">
+              <span style="cursor: pointer;"><a href="{{URL_BACKEND}}/api/clases/uploads/{{material.archivo}}"
+                  style="text-decoration: none;">{{material.archivo.split('_')[1]}}</a></span>
+              <span (click)="eliminarArchivo(material)" style="cursor: pointer;" *ngIf="!estudianteActivo"><i
+                  class="far fa-trash-alt text-danger"></i></span>
+            </div>
+            <hr class="mt-0 ">
+          </div>
+
+        </div>
+      </div>
+      <div class="col-3">
+        <p class="px-4">Horario</p>
+        <div class="ms-4">
+          <div *ngFor="let frecuencia of clase.frecuencias">
+            <span>{{frecuencia.dia.nombre}}</span>
+            <div class="d-flex">
+              <span>{{frecuencia.horario_inicio}} </span>
+              <span class="mx-1"> a </span>
+              <span> {{frecuencia.horario_fin}}</span>
+            </div>
+            <hr class="mt-0 ">
+          </div>
+          <div class="px-4">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="modal fade" id="subirArchivo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="subirArchivoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 600px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subirArchivoModalLabel">Nuevo material de clase</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+
+            <div class="col-12">
+              <label for="nombreFile" class="col-form-label">Nombre del archivo</label>
+              <input type="text" class="form-control" [(ngModel)]="nombreFile" name="nombreFile" required />
+            </div>
+            <input (change)="seleccionarArchivoPDF($event)" type="file" class="form-control my-4" id="inputGroupFile04"
+              aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+            <button (click)="subirArchivoPDF()" class="btn btn-outline-primary my-4" type="button"
+              id="inputGroupFileAddon04">Subir archivo</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-running-dots">
+      <p style="color: white"> Cargando... </p>
+    </ngx-spinner>
+  </div>
+
+
+
+  <div class="modal fade" id="crearAsignación" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="crearAsignación" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width: 600px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="crearAsignación">Nueva asignación</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #asignacionForm="ngForm">
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label for="titulo" class="input-label">Título</label>
+                <input type="text" class="form-control" name="titulo" [(ngModel)]="asignacion.titulo" required>
+  
+              </div>
+  
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-12">
+                <label for="desripción" class="input-label">Descripción</label>
+                <input type="text" class="form-control" name="desripción" [(ngModel)]="asignacion.descripcion" required>
+  
+              </div>
+  
+            </div>
+  
+            <div class="row">
+              <div class="form-group col-sm-8">
+                <label for="fechaInicio" class="input-label">Fecha inicio</label>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </div>
+                  <input type="text" name="fechaInicio" placeholder="Elegir fecha" class="form-control" bsDatepicker
+                    [bsConfig]="bsConfig" autocomplete="off" [(ngModel)]="asignacion.fechaInicio" required>
+                </div>
+  
+  
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="hora" class="input-label">Hora</label>
+                <div class="col-sm-12">
+                  <select [(ngModel)]="horaInicioSeleccionada" class="form-control" name="horaInicio" required>
+                    <option [ngValue]="undefined">-- Seleccionar --</option>
+                    <option *ngFor="let hora of horaInicio" [ngValue]="hora">{{hora}}</option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="row">
+              <div class="form-group col-sm-8">
+                <label for="fechaFin" class="input-label">Fecha fin</label>
+                <div class="input-group">
+                  <div class="input-group-text">
+                    <i class="far fa-calendar-alt"></i>
+                  </div>
+                  <input type="text" name="fechaFin" placeholder="Elegir fecha" class="form-control" bsDatepicker
+                    [bsConfig]="bsConfig" autocomplete="off" [(ngModel)]="asignacion.fechaFin" required>
+                </div>
+  
+  
+              </div>
+              <div class="form-group col-sm-4">
+                <label for="hora" class="input-label">Hora</label>
+                <div class="col-sm-12">
+                  <select [(ngModel)]="horaFinSeleccionada" class="form-control" name="horaFin" required>
+                    <option [ngValue]="undefined">-- Seleccionar --</option>
+                    <option *ngFor="let hora of horaFin" [ngValue]="hora">{{hora}}</option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="row mt-2">
+              <div class="form-group col-sm-12">
+                <button class="btn btn-primary float-end" (click)="crearAsignacion()" [disabled]="!asignacionForm.form.valid">Crear asignación</button>
+              </div>
+  
+            </div>
+          </form>
+         
+
+        </div>
+
+      </div>
+    </div>
+
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-running-dots">
+      <p style="color: white"> Cargando... </p>
+    </ngx-spinner>
+  </div>

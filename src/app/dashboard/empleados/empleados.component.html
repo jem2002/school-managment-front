@@ -1,0 +1,52 @@
+<detalle-estudiante *ngIf="empleadoSeleccionado" [empleado]="empleadoSeleccionado">
+    
+</detalle-estudiante>
+
+<div class="card mt-2">
+    <div class="card-body">
+      <div class="col-md-12 mx-0">
+        <h5>Empleados Registrados</h5>
+        <button class="btn btn-sm"  [routerLink]="[ '/dashboard/empleados/form']">Nuevo empleado</button>
+        <hr>
+        <div class="col-md-12 ">
+            
+            
+            <div class="card mt-2">
+                    <div class="alert alert-info mb-0" role="alert" *ngIf="listaEmpleados.length == 0">
+                        No hay empleados registrados. Registre empleados.
+                      </div>
+                    <table class="table-empleados" *ngIf="listaEmpleados.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Ape. Paterno</th>
+                                <th>Ape. Materno</th>
+                                <th>DNI</th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let empleado of listaEmpleados">
+                                <td><button class="btn btn-primary" (click)="abrirModal(empleado)">{{empleado.id}}</button></td>
+                                <td>{{empleado.nombres | uppercase}}</td>
+                                <td>{{empleado.apellidoPaterno | uppercase}}</td>
+                                <td>{{empleado.apellidoMaterno | uppercase}}</td>
+                                <td>{{empleado.dni}}</td>
+                                <td>{{empleado.fechaNacimiento}}</td>
+                                <td>
+                                    <button class="btn me-2"  [routerLink]="[ 'form', empleado.id ]"><i class="far fa-edit"></i></button>
+                                    <!-- <button class="btn btn-eliminar " (click)="eliminar(empleado)"><i class="far fa-trash-alt"></i></button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                      </table>
+            
+            </div>
+          </div>
+      </div>
+    </div>
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+    </div>

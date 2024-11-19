@@ -1,0 +1,25 @@
+<div *ngIf="single == undefined">
+  <div class="alert alert-info" role="alert">
+    Selecciona una fecha para poder mostrar estadísticas.
+  </div>
+  
+</div>
+<div *ngIf="single != undefined && multiData.length == 0">
+  <div  class="alert alert-info" role="alert">
+    No se encontraron registros de asistencia.
+  </div>
+</div>
+
+
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+
+<ngx-charts-pie-chart *ngIf="multiData.length > 0"
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="single"
+  [gradient]="gradient"
+  [labels]="showLabels"
+  [doughnut]="isDoughnut"
+  >
+</ngx-charts-pie-chart>

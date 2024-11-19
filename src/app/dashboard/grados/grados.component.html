@@ -1,0 +1,83 @@
+<div class="card mt-2">
+  <div class="card-body">
+    <div class="col-md-12 mx-0">
+      <h5>Grados registrados</h5>
+      <button class="btn btn-sm btn-color" data-bs-toggle="modal"
+      data-bs-target="#crearGradoModal">Nuevo grado</button>
+      <hr>
+      <div class="col-md-12 ">
+        <div class="alert alert-info mb-0" role="alert" *ngIf="grados.length == 0">
+          No hay GRADOS registrados. Registre GRADOS.
+        </div>
+        <div class="row row-cols-1 row-cols-md-4" *ngIf="grados.length > 0">
+          <div class="col" *ngFor="let grado of grados" >
+            <div class="card mb-2">
+            <div class="card-header text-white d-flex justify-content-between align-items-center">
+              {{grado.nombre}}<span class="badge bg-primary rounded-pill" data-bs-toggle="tooltip" data-bs-placement="top" title=" clases relacionadas">{{grado.aulas?.length}}</span>
+            </div>
+            <ul class="list-group list-group-flush">
+              <div class="row p-3">
+                <ul class="list-group px-2">
+                  <a data-bs-toggle="modal" data-bs-target="#crearGradoModal" style="text-decoration: none; color: inherit;" (click)="cargarGrado(grado)">
+                  <li class="list-group-item list-group-item-info text-center">Editar</li>
+                </a>
+                <a (click)="eliminarGrado(grado)" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-danger text-center">Eliminar</li>
+                </a>
+                </ul>
+              </div>
+            </ul>
+          
+        </div>
+      </div>
+      </div>
+        </div>
+    </div>
+    
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+  </div>
+  </div>
+
+      <!-- Modal -->
+<div class="modal fade" id="crearGradoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="crearGradoModalLabel" aria-hidden="true" > 
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="crearGradoModalLabel">Nuevo grado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cerrarModal(gradoForm)"></button>
+      </div>
+      <div class="modal-body">
+        <form #gradoForm="ngForm">
+          <div class="row mb-2">
+            <div class="col-12"  *ngIf="!grado.id && !gradoActualizar.id">
+              <label for="nombreGrado" class="ms-1">Nombre</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [(ngModel)]="grado.nombre" name="nombreGrado" />
+              </div>
+            </div>
+            <div class="col-12" *ngIf="gradoActualizar.id && !grado.id">
+              <label for="nombreGradoActualizar" class="ms-1">Nombre</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [(ngModel)]="gradoActualizar.nombre" name="nombreGradoActualizar"/>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarModal(gradoForm)">
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-color" (click)="crearGrado(gradoForm)" *ngIf="!grado.id && !gradoActualizar.id">
+          Crear grado
+        </button>
+        <button type="button" class="btn btn-color" data-bs-dismiss="modal" (click)="actualizarGrado(gradoForm)" *ngIf="gradoActualizar.id && !grado.id">
+          Actualizar
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</div>

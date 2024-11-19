@@ -1,0 +1,75 @@
+<detalle-estudiante *ngIf="estudianteSeleccionado" [estudiante]="estudianteSeleccionado">
+    
+</detalle-estudiante>
+
+<div class="card mt-2">
+    <div class="card-body">
+    <div class="col-md-12 mx-0">
+        <h5>Estudiantes Registrados</h5>
+        <button class="btn btn-sm"  [routerLink]="[ '/dashboard/matriculas/form']">Nueva matrícula</button>
+        <div class="col-sm-4 col-lg-3 col-xl-3 col-xxl-2 mt-2">
+            <div class="input-group">
+                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="buscarPorDni" required  minlength="8" maxlength="8" #dni="ngModel" placeholder="Ingrese el dni...">
+                <button class="btn btn-success btn-sm" (click)="buscarEstudiante()" *ngIf="!busquedaActivada && estudianteEncontrado == null"><i class="fas fa-search"></i></button>
+                <button class="btn btn-eliminar btn-sm" (click)="limpiarBusqueda()" *ngIf="busquedaActivada && estudianteEncontrado"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <hr>
+        <div class="col-md-12 ">
+            
+            
+            <div class="card mt-2">
+                    <div class="alert alert-info mb-0" role="alert" *ngIf="listaEstudiantes.length == 0">
+                        No hay estudiantes registrados. Registre estudiantes.
+                    </div>
+                    <table class="table-estudiantes" *ngIf="listaEstudiantes.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Ape. Paterno</th>
+                                <th>Ape. Materno</th>
+                                <th>DNI</th>
+                                <th>Fecha Nacimiento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="!busquedaActivada && estudianteEncontrado == null">
+                            <tr *ngFor="let estudiante of listaEstudiantes">
+                                <td><button class="btn btn-primary" (click)="abrirModal(estudiante)">{{estudiante.id}}</button></td>
+                                <td>{{estudiante.nombres | uppercase}}</td>
+                                <td>{{estudiante.apellidoPaterno | uppercase}}</td>
+                                <td>{{estudiante.apellidoMaterno | uppercase}}</td>
+                                <td>{{estudiante.dni}}</td>
+                                <td>{{estudiante.fechaNacimiento}}</td>
+                                <td>
+                                    <button class="btn me-2"  [routerLink]="[ '/dashboard/estudiantes/form', estudiante.id ]"><i class="far fa-edit"></i></button>
+                                    <!-- <button class="btn btn-eliminar " (click)="eliminar(estudiante)"><i class="far fa-trash-alt"></i></button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="busquedaActivada && estudianteEncontrado">
+                            <tr>
+                                <td><button class="btn btn-primary" (click)="abrirModal(estudianteEncontrado)">{{estudianteEncontrado.id}}</button></td>
+                                <td>{{estudianteEncontrado.nombres}}</td>
+                                <td>{{estudianteEncontrado.apellidoPaterno}}</td>
+                                <td>{{estudianteEncontrado.apellidoMaterno}}</td>
+                                <td>{{estudianteEncontrado.dni}}</td>
+                                <td>{{estudianteEncontrado.fechaNacimiento}}</td>
+                                <td>
+                                    <button class="btn me-2"  [routerLink]="[ '/dashboard/estudiantes/form', estudianteEncontrado.id ]"><i class="far fa-edit"></i></button>
+                                    <!-- <button class="btn btn-eliminar " (click)="eliminar(estudianteEncontrado)"><i class="far fa-trash-alt"></i></button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                      <app-paginator [paginador]="paginador" *ngIf="paginador"></app-paginator>
+            
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+    </div>

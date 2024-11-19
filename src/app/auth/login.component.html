@@ -1,0 +1,39 @@
+<div class="container-login" *ngIf="!isAuthenticated" >
+    <div class=" col-12 d-flex justify-content-center align-items-center">
+        <div class="card p-5">
+            <div class="text-center mt-3">
+                <h5 class="fw-bold">Inicio de sesión</h5>
+            </div>
+            <form>
+                <div class="px-2 my-3">
+                    <label for="username" class="input-label fw-bold">Username</label>
+                    <input type="text" class="form-control" name="username" [(ngModel)]="loginUsuario.username">
+                </div>
+                <div class="px-2">
+                    <label for="password" class="input-label fw-bold">Contraseña</label>
+                    <input type="password" name="password" class="form-control" [(ngModel)]="loginUsuario.password">
+                </div>
+
+                <div class=" px-2 alert  text-danger" role="alert" *ngIf="!isLogged" >
+                    {{errorMensaje}}
+                </div>
+                <div class="px-2  d-grid">
+                <button class="btn btn-block" (click)="onLogin()">Iniciar sesión</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+
+</div>
+
+
+<div class="container mt-5" *ngIf="isAuthenticated">
+    <div class="alert bg-white" role="alert">
+        <h4 class="alert-heading">Ya iniciaste sesión.</h4>
+        <p>Haga clic en el siguiente botón para regresar al menu principal.</p>
+        <hr>
+        <button class="mb-0 btn " (click)="backToMenu()">Menu principal</button>
+      </div>
+</div>

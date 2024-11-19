@@ -1,0 +1,63 @@
+<div class="container-horario card">
+    <div class="d-flex justify-content-center" *ngIf="clases.length > 0">
+        <div class="aula-title mt-4 d-flex border-bottom mb-3">
+            <div class="col-6">
+                <h5>Horario del aula {{aula.nombre}} {{aula.seccion}}</h5>
+            </div>
+            <div class="col-6">
+                           
+            <h4 class="card-title float-end">
+                <a [routerLink]="['/dashboard/aulas']" class="btn btn-light btn-sm">&laquo; regresar</a>
+            </h4> 
+            </div>
+
+        </div>
+    </div>
+
+    <div class="alert alert-info mx-3 d-flex justify-content-between mt-3" role="alert" *ngIf="clases.length == 0">
+      <span>No hay cursos asignados al aula.</span>
+      <a [routerLink]="['/dashboard/aulas']" class="btn btn-light btn-sm">&laquo; regresar</a>
+    </div>
+    
+    
+    <div class="d-flex  justify-content-center" *ngIf="clases.length > 0">
+        <div class="col-2 border py-3 text-center title-dia" *ngFor="let dia of diasSemana">
+          {{dia.nombre}}
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mb-5  text-clases" *ngIf="clases.length > 0">
+      <div class="col-2 ">
+      <div *ngFor="let frecuencia of frecuenciasLunes" class="d-flex flex-column p-2 border">
+        <div><span>{{frecuencia.clase?.curso.nombre}}</span></div>
+        <div><span>{{frecuencia.horario_inicio}} - {{frecuencia.horario_fin}}</span></div>
+      </div>
+    </div>
+    <div class="col-2 ">
+      <div *ngFor="let frecuencia of frecuenciasMartes" class="d-flex flex-column p-2 border">
+        <div><span>{{frecuencia.clase?.curso.nombre}}</span></div>
+        <div><span>{{frecuencia.horario_inicio}} - {{frecuencia.horario_fin}}</span></div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div *ngFor="let frecuencia of frecuenciasMiercoles" class="d-flex flex-column p-2 border">
+        <div><span>{{frecuencia.clase?.curso.nombre}}</span></div>
+        <div><span>{{frecuencia.horario_inicio}} - {{frecuencia.horario_fin}}</span></div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div *ngFor="let frecuencia of frecuenciasJueves" class="d-flex flex-column p-2 border">
+        <div><span>{{frecuencia.clase?.curso.nombre}}</span></div>
+        <div><span>{{frecuencia.horario_inicio}} - {{frecuencia.horario_fin}}</span></div>
+      </div>
+    </div>
+    <div class="col-2">
+      <div *ngFor="let frecuencia of frecuenciasViernes" class="d-flex flex-column p-2 border">
+        <div><span>{{frecuencia.clase?.curso.nombre}}</span></div>
+        <div><span>{{frecuencia.horario_inicio}} - {{frecuencia.horario_fin}}</span></div>
+      </div>
+    </div>
+    </div>
+    
+  </div>
+  
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>

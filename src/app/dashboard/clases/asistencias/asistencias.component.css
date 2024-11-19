@@ -1,0 +1,33 @@
+.btn-color{
+    background-color: #164e85 ;
+    border-color: #164e85 ;
+    color: #fff;
+  }
+.btn-color:hover{
+    background-color: #124374 ;
+    border-color: #124374 ;
+}
+
+.borders {
+  border: 1px solid #164e85;
+  font-size: 14px;
+}
+
+.borders:nth-child(1){
+  border-right: none;
+  font-weight: 500;
+  
+}
+
+.borders:nth-child(2){
+  border-left: none;
+}
+
+.borders:nth-child(3){
+  border-right: none;
+}
+
+.borders:nth-child(4){
+  border-left: none;
+}
+

@@ -1,0 +1,13 @@
+.card-header {
+    background-color: #164e85;
+}
+
+.btn{
+    background-color: #164e85 ;
+    border-color: #164e85 ;
+    color: #fff;
+  }
+.btn:hover{
+    background-color: #124374 ;
+    border-color: #124374 ;
+}

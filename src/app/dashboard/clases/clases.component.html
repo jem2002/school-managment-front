@@ -1,0 +1,40 @@
+<div class="card mt-2">
+  <div class="card-header bg-white">
+      Clases registradas 
+  </div>
+  <h4 class="card-title">
+    <a [routerLink]="['/dashboard/aulas']" class="btn btn-light btn-sm">&laquo; regresar</a>
+    <button [routerLink]="[ '/dashboard/aulas',idAula,'asistencias' ]" class="btn btn-outline-primary btn-sm float-end">Marcar Asistencia</button>
+</h4>
+  <div class="card-body">
+
+  <div class="alert alert-info mb-0 " role="alert" *ngIf="clases.length == 0">
+    No hay CLASES registradas. Registre CLASES.
+  </div>
+    <div class="row row-cols-1 row-cols-md-3">
+      
+      <div class="col" *ngFor="let clase of clases">
+        <div>
+          <ul class="list-group list-group-flush">
+            <div class="row p-3">
+              <ul class="list-group px-2">
+                <li class="list-group-item list-group-item-primary"><span>{{ clase.curso.nombre }}</span></li>
+                <li class="list-group-item list-group-item-light"><span>Aula: </span><span>{{ clase.aula?.nombre }} {{ clase.aula?.seccion }}</span></li>
+                <li class="list-group-item list-group-item-light" *ngIf="clase.empleado"><span>Profesor(a): </span><span>{{ clase.empleado?.nombres }} {{ clase.empleado?.apellidoPaterno }}</span></li>
+                <li class="list-group-item list-group-item-light" *ngIf="!clase.empleado"><span>Profesor(a): </span> <button class="btn btn-success btn-sm">Asignar Profesor</button></li>
+                <a [routerLink]="[clase.id]" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-success text-center">Ver clase</li>
+                </a>
+                <a [routerLink]="[clase.id, 'notas']" style="text-decoration: none; color: inherit;">
+                  <li class="list-group-item list-group-item-success text-center">Notas</li>
+                </a>
+              </ul>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+</div>

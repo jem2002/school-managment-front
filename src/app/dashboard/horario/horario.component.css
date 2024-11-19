@@ -1,0 +1,21 @@
+
+.container-horario {
+    width: 100%;
+    margin: auto;
+  }
+  
+  .title-dia {
+    background-color: #164e85;
+    color: #fff;
+  }
+  
+  .text-clases {
+    color: #164e85;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .aula-title{
+      width: 83%;
+      
+  }

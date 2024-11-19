@@ -1,0 +1,19 @@
+
+
+  <h3>Notas registradas</h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let nota of notas">
+      <div class="card">
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">{{nota.curso.nombre}}</li>
+            <li class="list-group-item d-flex justify-content-between"><span>BIMESTRE 1 </span><span class="badge bg-success" [ngClass]="{'bg-danger': nota.nota_bim1 < NOTA_APROBATORIA}" style="width: 2rem;"><span *ngIf="nota.nota_bim1 < 10">0</span>{{nota.nota_bim1}}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><span>BIMESTRE 2 </span><span class="badge bg-success" [ngClass]="{'bg-danger': nota.nota_bim2 < NOTA_APROBATORIA}" style="width: 2rem;"><span *ngIf="nota.nota_bim2 < 10">0</span>{{nota.nota_bim2}}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><span>BIMESTRE 3 </span><span class="badge bg-success" [ngClass]="{'bg-danger': nota.nota_bim3 < NOTA_APROBATORIA}" style="width: 2rem;"><span *ngIf="nota.nota_bim3 < 10">0</span>{{nota.nota_bim3}}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><span>BIMESTRE 4 </span><span class="badge bg-success" [ngClass]="{'bg-danger': nota.nota_bim4 < NOTA_APROBATORIA}" style="width: 2rem;"><span *ngIf="nota.nota_bim4 < 10">0</span>{{nota.nota_bim4}}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><span>PROMEDIO FINAL </span><span class="badge bg-success" [ngClass]="{'bg-danger': nota.promedio_final < NOTA_APROBATORIA}" style="width: 2rem;"><span *ngIf="nota.promedio_final < 10">0</span>{{nota.promedio_final}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

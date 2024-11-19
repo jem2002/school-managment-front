@@ -1,0 +1,281 @@
+<div class="card mb-5">
+    <div class="card-header bg-white ">Crear Matrícula</div>
+    <h4 class="card-title">
+        <a [routerLink]="['/dashboard/estudiantes/page/0']" class="btn btn-light">&laquo; regresar</a>
+    </h4>
+    <div class="card-body">
+        
+        <form #matriculaForm="ngForm">
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="anio" class="input-label">Año</label>
+                <input type="text" class="form-control" name="anio" [(ngModel)]="matricula.anio" required minlength="4" maxlength="4" #anio="ngModel" pattern="[0-9]+">
+                <div class="text-danger" *ngIf="anio.invalid && (anio.dirty || anio.touched)">
+                    <div *ngIf="anio.errors.required">
+                        Año es requerido
+                    </div>
+                    <div *ngIf="anio.errors.minlength || anio.errors.maxlength">
+                        Año debe tener 4 caracteres.
+                    </div>
+                    <div *ngIf="anio.errors?.pattern">
+                        Año inválido
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="iEProcedencia" class="input-label">Colegio Procedencia</label>
+                <input type="text" class="form-control" name="iEProcedencia" [(ngModel)]="matricula.iEProcedencia" required minlength="10" maxlength="50" #colegioP="ngModel">
+                <div class="text-danger" *ngIf="colegioP.invalid && (colegioP.dirty || colegioP.touched)">
+                    <div *ngIf="colegioP.errors.required">
+                        Colegio es requerido
+                    </div>
+                    <div *ngIf="colegioP.errors.minlength || colegioP.errors.maxlength">
+                        Colegio debe ser entre 10 y 40 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="detalle" class="input-label">Detalle</label>
+                <input type="text" class="form-control" [(ngModel)]="matricula.detalle" name="detalle">
+            </div>
+        </div>
+        <h5 class="mt-4">Datos del estudiante</h5>
+        <hr>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="nombres" class="input-label">Nombres</label>
+                <input type="text" class="form-control" name="nombres" [(ngModel)]="matricula.estudiante.nombres" required minlength="2" maxlength="40" #nombres="ngModel">
+                <div class="text-danger" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+                    <div *ngIf="nombres.errors.required">
+                        Nombres es requerido
+                    </div>
+                    <div *ngIf="nombres.errors.minlength || nombres.errors.maxlength">
+                        Nombres debe ser entre 2 y 40 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoPaterno" class="input-label">Apellido Paterno</label>
+                <input type="text" class="form-control" name="apellidoPaterno" [(ngModel)]="matricula.estudiante.apellidoPaterno" required minlength="2" maxlength="20" #apellidoPaterno="ngModel">
+                <div class="text-danger" *ngIf="apellidoPaterno.invalid && (apellidoPaterno.dirty || apellidoPaterno.touched)">
+                    <div *ngIf="apellidoPaterno.errors.required">
+                        Apellido paterno es requerido
+                    </div>
+                    <div *ngIf="apellidoPaterno.errors.minlength || apellidoPaterno.errors.maxlength">
+                        Apellido paterno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoMaterno" class="input-label">Apellido Materno</label>
+                <input type="text" class="form-control" name="apellidoMaterno" [(ngModel)]="matricula.estudiante.apellidoMaterno" required minlength="2" maxlength="20" #apellidoMaterno="ngModel">
+                <div class="text-danger" *ngIf="apellidoMaterno.invalid && (apellidoMaterno.dirty || apellidoMaterno.touched)">
+                    <div *ngIf="apellidoMaterno.errors.required">
+                        Apellido materno es requerido
+                    </div>
+                    <div *ngIf="apellidoMaterno.errors.minlength || apellidoMaterno.errors.maxlength">
+                        Apellido materno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group col-sm-4">
+                <label for="dni" class="input-label">dni</label>
+                <input type="text" class="form-control" name="dni" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.dni" required  minlength="8" maxlength="8" #dni="ngModel">
+                <div class="text-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+                    <div *ngIf="dni.errors.required">
+                        dni es requerido
+                    </div>
+                    <div *ngIf="dni.errors.minlength || dni.errors.maxlength">
+                        dni debe tener 8 caracteres.
+                    </div>
+                    <div *ngIf="dni.errors?.pattern">
+                        dni inválido.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="fechaNacimiento" class="input-label">Fecha de Nacimiento</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <input type="text"
+                    name="fechaNacimiento"
+                    placeholder="Elegir fecha"
+                    class="form-control"
+                    bsDatepicker
+                    [maxDate]="maxDate"
+                    [bsConfig]="bsConfig"
+                    autocomplete="off"
+                    [(ngModel)]="matricula.estudiante.fechaNacimiento" required #fechaNacimiento="ngModel">
+                </div>
+                <div class="text-danger" *ngIf="fechaNacimiento.invalid && (fechaNacimiento.dirty || fechaNacimiento.touched)">
+                    <div *ngIf="fechaNacimiento.errors.required">
+                        La fecha es requerida.
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="celular" class="input-label">Nro. Celular</label>
+                <input type="text" class="form-control" name="celular" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.celular" required minlength="9" maxlength="9" #celular="ngModel">
+                <div class="text-danger" *ngIf="celular.invalid && (celular.dirty || celular.touched)">
+                    <div *ngIf="celular.errors.required">
+                        Celular es requerido
+                    </div>
+                    <div *ngIf="celular.errors.minlength || celular.errors.maxlength">
+                        Celular debe tener 9 caracteres.
+                    </div>
+                    <div *ngIf="celular.errors?.pattern">
+                        Celular inválido.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="form-group col-sm-3">
+                <label for="nivel" class="input-label">Nivel</label>
+                        <div class="col-sm-12">
+                            <select [(ngModel)]="matricula.estudiante.nivel" class="form-select" name="nivel" required>
+                                <option [ngValue]="undefined">--- Seleccionar nivel ---</option>
+                                <option *ngFor="let nivel of niveles" [ngValue]="nivel">{{nivel.nombre}}</option>
+                            </select>
+                        </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="turno" class="input-label">Turno</label>
+                        <div class="col-sm-12">
+                            <select [(ngModel)]="matricula.estudiante.turno" class="form-select" name="turno" required>
+                                <option [ngValue]="undefined">--- Seleccionar turno ---</option>
+                                <option *ngFor="let turno of turnos" [ngValue]="turno">{{turno.nombre}}</option>
+                            </select>
+                        </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="grado" class="input-label">Grado</label>
+                        <div class="col-sm-12">
+                            <select [(ngModel)]="matricula.estudiante.grado" class="form-select" name="grado" required>
+                                <option [ngValue]="undefined">--- Seleccionar grado ---</option>
+                                <option *ngFor="let grado of grados" [ngValue]="grado">{{grado.nombre}}</option>
+                            </select>
+                        </div>
+            </div>
+            <div class="form-group col-sm-3">
+                <label for="sexo" class="input-label">Sexo</label>
+                        <div class="col-sm-12">
+                            <select [(ngModel)]="matricula.estudiante.sexo" class="form-select" name="sexo" required>
+                                <option [ngValue]="undefined">--- Seleccionar sexo ---</option>
+                                <option *ngFor="let s of sexo" [ngValue]="s">{{s}}</option>
+                            </select>
+                        </div>
+            </div>
+            </div>
+
+        <div class="row mt-2">
+        <div class="form-group col-sm-12">
+            <label for="domicilio" class="input-label" required>Domicilio del estudiante</label>
+            <input type="text" class="form-control" name="domicilio" [(ngModel)]="matricula.estudiante.domicilio" required minlength="10" maxlength="80" #domicilio="ngModel">
+            <div class="text-danger" *ngIf="domicilio.invalid && (domicilio.dirty || domicilio.touched)">
+                <div *ngIf="domicilio.errors.required">
+                    Domicilio es requerido
+                </div>
+                <div *ngIf="domicilio.errors.minlength || domicilio.errors.maxlength">
+                    Domicilio debe ser entre 10 y 80 caracteres.
+                </div>
+            </div>
+        </div>
+
+
+        </div>
+        <h5 class="mt-4">Datos del apoderado</h5>
+
+        
+        
+        <hr>
+        <div class="row mb-2">
+            <div class="form-group col-sm-6">
+                <label for="dniApo" class="input-label" required>dni</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" name="dniApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.dni" required  minlength="8" maxlength="8" #dniApo="ngModel">
+                    <!-- <button class="btn btn-success btn-sm" (click)="buscarApoderado()"><i class="fas fa-search"></i></button> -->
+                </div>
+                
+                <div class="text-danger" *ngIf="dniApo.invalid && (dniApo.dirty || dniApo.touched)">
+                    <div *ngIf="dniApo.errors.required">
+                        dni es requerido
+                    </div>
+                    <div *ngIf="dniApo.errors.minlength || dniApo.errors.maxlength">
+                        dni debe tener 8 caracteres.
+                    </div>
+                    <div *ngIf="dniApo.errors?.pattern">
+                        dni inválido.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="celularApo" class="input-label" required>Celular</label>
+                <input type="text" class="form-control" name="celularApo" pattern="[0-9]+" [(ngModel)]="matricula.estudiante.apoderado.celular" required minlength="9" maxlength="9" #celularApo="ngModel">
+                <div class="text-danger" *ngIf="celularApo.invalid && (celularApo.dirty || celularApo.touched)">
+                    <div *ngIf="celularApo.errors.required">
+                        Celular es requerido
+                    </div>
+                    <div *ngIf="celularApo.errors.minlength || celularApo.errors.maxlength">
+                        Celular debe tener 9 caracteres.
+                    </div>
+                    <div *ngIf="celularApo.errors?.pattern">
+                        Celular inválido.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label for="nombresApo" class="input-label" required>Nombres</label>
+                <input type="text" class="form-control" name="nombresApo" [(ngModel)]="matricula.estudiante.apoderado.nombres" required minlength="2" maxlength="40" #nombresApo="ngModel">
+                <div class="text-danger" *ngIf="nombresApo.invalid && (nombresApo.dirty || nombresApo.touched)">
+                    <div *ngIf="nombresApo.errors.required">
+                        Nombres es requerido
+                    </div>
+                    <div *ngIf="nombresApo.errors.minlength || nombresApo.errors.maxlength">
+                        Nombres debe tener 9 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoPaternoApo" class="input-label" required>Apellido Paterno</label>
+                <input type="text" class="form-control" name="apellidoPaternoApo" [(ngModel)]="matricula.estudiante.apoderado.apellidoPaterno" required minlength="2" maxlength="20" #apellidoPaternoApo="ngModel">
+                <div class="text-danger" *ngIf="apellidoPaternoApo.invalid && (apellidoPaternoApo.dirty || apellidoPaternoApo.touched)">
+                    <div *ngIf="apellidoPaternoApo.errors.required">
+                        Apellido Paterno es requerido
+                    </div>
+                    <div *ngIf="apellidoPaternoApo.errors.minlength || apellidoPaternoApo.errors.maxlength">
+                        Apellido paterno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="apellidoMaternoApo" class="input-label" required>Apellido Materno</label>
+                <input type="text" class="form-control" name="apellidoMaternoApo" [(ngModel)]="matricula.estudiante.apoderado.apellidoMaterno" required minlength="2" maxlength="20" #apellidoMaternoApo="ngModel">
+                <div class="text-danger" *ngIf="apellidoMaternoApo.invalid && (apellidoMaternoApo.dirty || apellidoMaternoApo.touched)">
+                    <div *ngIf="apellidoMaternoApo.errors.required">
+                        Apelldio materno es requerido
+                    </div>
+                    <div *ngIf="apellidoMaternoApo.errors.minlength || apellidoMaternoApo.errors.maxlength">
+                        Apellido materno debe ser entre 2 y 20 caracteres.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" mt-3">
+            <button class="btn btn-xs" style="background-color: #164e85 ;border-color: #164e85 ;color: #fff;" (click)="crear()" [disabled]="!matriculaForm.form.valid">Crear matrícula</button>
+        </div>
+    </form>
+    
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-running-dots"><p style="color: white" > Cargando... </p></ngx-spinner>
+    </div>
+    
+</div>
